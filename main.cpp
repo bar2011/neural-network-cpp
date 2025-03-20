@@ -1,7 +1,7 @@
 #include "loader.h"
 #include <string_view>
 
-int main() {
+std::array<MNistLoader::DataPair, 2> loadData() {
   std::string_view trainingLabelsPath{"./data/train-labels-idx1-ubyte"};
   std::string_view trainingImagesPath{"./data/train-images-idx3-ubyte"};
   std::string_view testingLabelsPath{"./data/t10k-labels-idx1-ubyte"};
@@ -9,7 +9,13 @@ int main() {
   MNistLoader *loader{new MNistLoader(trainingLabelsPath, trainingImagesPath,
                                       testingLabelsPath, testingImagesPath)};
 
-  loader->loadData();
+  auto data{loader->loadData()};
+
+  return data;
+}
+
+int main() {
+  auto loader{loadData()};
 
   return 0;
 }
